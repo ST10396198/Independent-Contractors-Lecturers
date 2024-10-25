@@ -5,7 +5,7 @@ using ContractMonthlyClaimSystem.Validation;
 
 namespace ContractMonthlyClaimSystem.Models
 {
-	public class SubmitClaimViewModel
+	public class SubmitClaimViewModel 
 	{
 		[BindProperty]
 		[Required(ErrorMessage = "Please select a course.")]
