@@ -4,7 +4,7 @@ using ContractMonthlyClaimSystem.Models.Enums;
 
 namespace ContractMonthlyClaimSystem.Models
 {
-	// User table in DB
+	// User table in DB 
 	public class User
 	{
 		[Key]
