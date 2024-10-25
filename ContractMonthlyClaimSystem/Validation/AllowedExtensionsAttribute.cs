@@ -9,7 +9,7 @@ namespace ContractMonthlyClaimSystem.Validation
 	{
 		private readonly string[] _extensions;
 
-		public AllowedExtensionsAttribute(string[] extensions)
+		public AllowedExtensionsAttribute(string[] extensions) 
 		{
 			_extensions = extensions;
 		}

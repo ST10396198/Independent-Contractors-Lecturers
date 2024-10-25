@@ -7,7 +7,7 @@ namespace ContractMonthlyClaimSystem.Middleware
 		public CookieSessionMiddleware(RequestDelegate next)
 		{
 			_next = next;
-		}
+		} 
 
 		public async Task InvokeAsync(HttpContext context)
 		{

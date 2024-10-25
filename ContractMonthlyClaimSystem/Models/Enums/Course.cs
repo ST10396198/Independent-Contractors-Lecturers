@@ -6,4 +6,4 @@ namespace ContractMonthlyClaimSystem.Models.Enums
 		Course2,
 		Course3
 	}
-}
+} 
