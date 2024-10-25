@@ -1,0 +1,13 @@
+@page
+@model ContractMonthlyClaimSystem.Pages.DashboardModel
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("loadingMessage").innerText = "Redirecting, please wait...";
+	});
+</script>
+<div class="container">
+	<h1>Redirecting...</h1>
+	<p id="loadingMessage">You are being redirected based on your role.</p>
+	<p>If you are not redirected automatically, <a href="@Url.Page("/Account/Login")">click here</a> to log in.</p>
+</div>

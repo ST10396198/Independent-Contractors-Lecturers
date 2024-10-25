@@ -1,0 +1,68 @@
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+
+@{
+    var heading = TempData["ModalPopUpHeading"] as string;
+    var message = TempData["ModalPopUpMessage"] as string;
+    var url = TempData["ModalPopUpUrlRedirect"] as string;
+    var urlBtnText = TempData["ModalPopUpUrlBtnText"] as string;
+
+	// Clear TempData after use
+    TempData["ModalPopUpHeading"] = null;
+    TempData["ModalPopUpMessage"] = null;
+    TempData["ModalPopUpUrlRedirect"] = null;
+    TempData["ModalPopUpUrlBtnText"] = null;
+}
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document"> <!-- Add modal-dialog-centered -->
+            <div class="modal-content">
+                <div class="modal-header">
+					@if (!string.IsNullOrEmpty(@heading))
+					{
+						<h5 class="modal-title" id="logoutModalLabel">@heading</h5>
+					}
+					else
+					{
+						<h5 class="modal-title" id="logoutModalLabel">Notification</h5>
+					}
+					<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                </div>
+                <div class="modal-body">
+                    @message
+                </div>
+                <div class="modal-footer">
+					@if (!string.IsNullOrEmpty(url) && !string.IsNullOrEmpty(urlBtnText)) // Conditionally display the link
+					{
+						<a href="@url">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">@urlBtnText</button>
+						</a>
+					}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Optional: Set maximum width for the modal */
+        #logoutModal .modal-dialog {
+            max-width: 500px; /* Adjust as needed */
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            // Show the modal
+            $('#logoutModal').modal('show');
+
+            // Ensure that buttons close the modal
+            $('#logoutModal').on('click', '[data-dismiss="modal"]', function () {
+                $('#logoutModal').modal('hide');
+            });
+        });
+    </script>
+}

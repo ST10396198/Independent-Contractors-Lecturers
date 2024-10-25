@@ -1,0 +1,80 @@
+@page 
+@model ContractMonthlyClaimSystem.Pages.Dashboard.Lecturer.SubmitClaimModel
+@{
+	ViewData["Title"] = "New Claim";
+	var courses = Model.ClaimViewModel.Courses;
+}
+
+<h1 class="text-center mt-2">New Claim</h1>
+
+<a class="mb-4 ms-3 btn btn-outline-secondary" href="/Dashboard">Back</a>
+
+<form method="post" class="mb-4 p-4 border rounded bg-light" enctype="multipart/form-data">
+	<div class="form-group mb-3">
+		<label>Select Course</label>
+		<div>
+			<select class="form-control" asp-for="ClaimViewModel.SelectedCourse">
+				<option value="">-- Select a Course --</option>
+				@foreach (var course in courses)
+				{
+					<option value="@course.Value">@course.Text</option>
+				}
+			</select>
+			<span asp-validation-for="ClaimViewModel.SelectedCourse" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label>Hours Worked</label>
+		<div>
+			<input type="number" step="1" class="form-control" asp-for="ClaimViewModel.HoursWorked" id="hoursWorked">
+			<span asp-validation-for="ClaimViewModel.HoursWorked" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label>Hourly Rate</label>
+		<div>
+			<input type="number" step="0.01" class="form-control" asp-for="ClaimViewModel.HourlyRate" id="hourlyRate">
+			<span asp-validation-for="ClaimViewModel.HourlyRate" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label>Total Amount</label>
+		<div>
+			R <span id="total-amount">0.00</span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label>Work Description</label>
+		<div>
+			<textarea class="form-control" asp-for="ClaimViewModel.Description" rows="3"></textarea>
+			<span asp-validation-for="ClaimViewModel.Description" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-group mb-3">
+		<label>Supporting Documents (PDF, DOCX, XLSX, max 5 files, max size 10MB each)</label>
+		<div>
+			<input type="file" class="form-control" asp-for="ClaimViewModel.SupportingDocuments" multiple accept=".pdf,.docx,.xlsx" />
+			<span asp-validation-for="ClaimViewModel.SupportingDocuments" class="text-danger"></span>
+		</div>
+	</div>
+	
+	<button type="submit" class="btn btn-primary w-100">Submit Claim</button>
+</form>
+
+<script>
+	const hoursWorkedInput = document.getElementById('hoursWorked');
+	const hourlyRateInput = document.getElementById('hourlyRate');
+	const totalAmountDisplay = document.getElementById('total-amount');
+
+	function calculateTotalAmount() {
+		const hoursWorked = parseFloat(hoursWorkedInput.value) || 0; // Get hours worked or default to 0
+		const hourlyRate = parseFloat(hourlyRateInput.value) || 0; // Get hourly rate or default to 0
+		const totalAmount = hoursWorked * hourlyRate; // Calculate total amount
+		totalAmountDisplay.textContent = totalAmount.toFixed(2); // Show total amount with two decimal places
+	}
+
+	// Event listeners
+	hoursWorkedInput.addEventListener('input', calculateTotalAmount);
+	hourlyRateInput.addEventListener('input', calculateTotalAmount);
+</script>
+

@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center mb-3">
+	<h1 class="display-4">Welcome, @(true ? "guest" : "Ryan")!</h1>
+</div>
+
+@await Html.PartialAsync("_Hero", new ContractMonthlyClaimSystem.Models.HeroViewModel {})
+
+<main class="container mt-2">
+	<div class="p-5 bg-light rounded shadow-sm">
+		<section class="mb-4">
+			<h1 class="display-4">Welcome to the Contract Monthly Claim System (CMCS)</h1>
+			<p class="lead">CMCS simplifies the process of submitting and approving monthly claims for Independent Contractor lecturers.</p>
+		</section>
+
+		<section class="mb-4">
+			<h2 class="h3">Key Features</h2>
+			<ul class="list-group">
+				<li class="list-group-item">Submit and track your claims easily. <span class="badge bg-primary ms-3">New</span></li>
+				<li class="list-group-item">Streamlined approval workflows. <span class="badge bg-success ms-3">Improved</span></li>
+				<li class="list-group-item">Real-time status updates and notifications. <span class="badge bg-info ms-3">Live</span></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="h3">News & Updates</h2>
+			<p>Stay tuned for the latest updates about the CMCS system.</p>
+		</section>
+	</div>
+</main>

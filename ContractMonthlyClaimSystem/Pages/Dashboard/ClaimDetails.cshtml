@@ -1,0 +1,76 @@
+@page
+@model ContractMonthlyClaimSystem.Pages.Dashboard.ClaimDetailsModel
+@{
+    ViewData["Title"] = "View Claim";
+}
+
+<h1 class="text-center mb-4">Claim Details</h1>
+
+<a class="mb-4 ms-3 btn btn-outline-secondary" href="/Dashboard">Back</a>
+
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="mb-0">@Model.LecturerFullName</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Course:</strong> @Model.Claim.Course</p>
+            <p><strong>Date Submitted:</strong> @Model.Claim.SubmissionDate.ToString("dd MMMM yyyy")</p>
+            <p><strong>Total Amount:</strong> R @Model.Claim.TotalAmount.ToString("F2")</p>
+            <p><strong>Hours Worked:</strong> @Model.Claim.HoursWorked.ToString("F2")</p>
+            <p><strong>Hourly Rate:</strong> R @Model.Claim.HourlyRate.ToString("F2")</p>
+            <p><strong>Description:</strong> @Model.Claim.Description</p>
+            <p><strong>Status:</strong>
+                <span class="badge @(Model.Claim.Status.ToString() == "Approved" ? "bg-success text-dark" : Model.Claim.Status.ToString() == "Pending" ? "bg-warning text-dark" : "bg-danger text-dark")">
+                    @Model.Claim.Status
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <h3>Supporting Documents</h3>
+    <ol class="list-group mb-4">
+		@foreach (var doc in Model.Claim.SupportingDocuments)
+		{
+			var truncatedFileName = doc.FileName.Length > 50
+				? doc.FileName.Substring(0, 50) + "..."
+				: doc.FileName;
+			var fileHref = Url.Content("~/" + doc.FilePath);
+			<a href="@fileHref" class="text-decoration-none" target="_blank">
+				@doc.FileName
+				@if (doc != Model.Claim.SupportingDocuments.Last()) { <span>, </span><br /> }
+			</a>
+		}
+    </ul>
+
+	@if(HttpContext.Session.GetString("UserRole") == "Admin")
+	{
+		<form method="post" asp-route-id="@Model.Claim.Id" asp-page-handler="UpdateStatus">
+			<div class="row align-items-center">
+				<div class="col-md-8">
+					<div class="form-group mb-0">
+						<label for="status">Update Status:</label>
+						<select id="status" name="UpdatedStatus" class="form-control">
+							@foreach (var status in Enum.GetValues(typeof(ContractMonthlyClaimSystem.Models.Enums.Status)))
+							{
+								if (Model.Claim.Status == (ContractMonthlyClaimSystem.Models.Enums.Status)status)
+								{
+									<option value="@status" selected="selected">@status</option>
+								}
+								else
+								{
+									<option value="@status">@status</option>
+								}
+							}
+						</select>
+					</div>
+				</div>
+				<div class="col-md-4 mt-auto">
+
+					<button type="submit" class="btn btn-primary">Update Status</button>
+				</div>
+			</div>
+		</form>
+	}
+</div>
+
