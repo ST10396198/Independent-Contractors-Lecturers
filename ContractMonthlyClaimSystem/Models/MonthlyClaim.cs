@@ -7,7 +7,7 @@ using ContractMonthlyClaimSystem.Models;
 public class MonthlyClaim
 {
 	[Key]
-    public int Id { get; set; }
+    public int Id { get; set; } 
 
     [Required]
     public int UserId { get; set; }

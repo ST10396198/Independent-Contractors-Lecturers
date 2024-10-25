@@ -5,7 +5,7 @@ namespace ContractMonthlyClaimSystem.Models
 {
 	public class SupportingDocument
 	{
-		[Key]
+		[Key] 
 		public int Id { get; set; }
 
 		[Required]
